@@ -37,12 +37,12 @@ Config {
    --   see http://projects.haskell.org/xmobar/#system-monitor-plugins.
    , commands = 
 
+
         -- weather monitor
-        [ Run Weather "RJTT" [ "--template", "<skyCondition> | <fc=#4682B4><tempC></fc>°C | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
-                             ] 36000
+        [ 
 
         -- cpu activity monitor
-        , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
+         Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
                              , "--low"      , "#ecbe7b"
@@ -72,9 +72,10 @@ Config {
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
         , Run Date           "%b %d %Y - (%H:%M) " "date" 50
 
-        -- keyboard layout indicator
-        , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
-                             , ("us"         , "<fc=#8B0000>US</fc>")
-                             ]
+        -- Prints out the left side items such as workspaces, layout, etc.
+                      -- The workspaces are 'clickable' in my configs.
+                    , Run UnsafeStdinReader
         ]
+        
+
    }
