@@ -1,10 +1,17 @@
+--
+-- My Config 
 
 import XMonad
 import Data.Monoid
 import System.Exit
+
+import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.SpawnOnce
+import XMonad.Hooks.SetWMName
+
 import XMonad.Util.Run
+import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -23,14 +30,14 @@ myClickJustFocuses = False
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 2
+myBorderWidth   = 4
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask       = mod1Mask
+myModMask       = mod4Mask
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -237,9 +244,9 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = do
-    spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
+myStartupHook =  do
+	spawnOnce "nitrogen --restore &"
+	spawnOnce "picom &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -247,8 +254,8 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do 
-    xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-    xmonad $ docks defaults
+	xmproc <- spawnPipe "xmobar ~/.config/xmobar/xmobarrc"
+	xmonad $ docks defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -275,8 +282,11 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
+        startupHook        = myStartupHook,
+        logHook            = myLogHook
+
+
+        
     }
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
