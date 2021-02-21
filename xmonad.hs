@@ -6,7 +6,6 @@ import Data.Monoid
 import System.Exit
 
 import XMonad.Hooks.WorkspaceHistory
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 
@@ -244,9 +243,9 @@ myLogHook = return ()
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook =  do
-	spawnOnce "nitrogen --restore &"
-	spawnOnce "picom &"
+myStartupHook = do
+    spawnOnce "nitrogen --restore &"
+    spawnOnce "picom &"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -254,8 +253,8 @@ myStartupHook =  do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do 
-	xmproc <- spawnPipe "xmobar ~/.config/xmobar/xmobarrc"
-	xmonad $ docks defaults
+    xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
+    xmonad $ docks defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
@@ -282,11 +281,8 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        startupHook        = myStartupHook,
-        logHook            = myLogHook
-
-
-        
+        logHook            = myLogHook,
+        startupHook        = myStartupHook
     }
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
